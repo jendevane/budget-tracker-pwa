@@ -57,7 +57,7 @@ function uploadfund() {
           'Content-Type': 'application/json'
         }
       })
-        .then(response => response.json())
+      .then(response => { return response.json(); })
         .then(serverResponse => {
           if (serverResponse.message) {
             throw new Error(serverResponse);
