@@ -1,4 +1,4 @@
-<script src="/js/"></script><script src="/js/idb.js"></script>
+
     
 let db;
 
