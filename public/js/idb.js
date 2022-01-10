@@ -18,7 +18,7 @@ request.onsuccess = function(event) {
    
     if (navigator.onLine) {
       
-      uploadTransaction();
+      uploadfund();
     }
   };
   
@@ -36,18 +36,18 @@ function saveRecord(record) {
 
     fundObjectStore.add(record);
 }
-function uploadTransaction() {
-    
-    const transaction = db.transaction(['new_fund'], 'readwrite');
-  
-    
-    const fundObjectStore = transaction.objectStore('new_fund');
-  
-    
-    const getAll = fundObjectStore.getAll();
-    
-getAll.onsuccess = function() {
-    
+function uploadfund() {
+
+  const transaction = db.transaction(['new_fund'], 'readwrite');
+
+
+  const fundObjectStore = transaction.objectStore('new_fund');
+
+
+  const getAll = fundObjectStore.getAll();
+
+  getAll.onsuccess = function () {
+
     if (getAll.result.length > 0) {
       fetch('/api/transaction', {
         method: 'POST',
@@ -62,11 +62,11 @@ getAll.onsuccess = function() {
           if (serverResponse.message) {
             throw new Error(serverResponse);
           }
-         
+
           const transaction = db.transaction(['new_fund'], 'readwrite');
-          
+
           const fundObjectStore = transaction.objectStore('new_fund');
-        
+
           fundObjectStore.clear();
 
           alert('All saved funds has been submitted!');
@@ -75,9 +75,9 @@ getAll.onsuccess = function() {
           console.log(err);
         });
     }
-    };
-    
-window.addEventListener('online', uploadfund);
-  
-  
-  }
+  };
+
+  window.addEventListener('online', uploadfund);
+
+
+}
