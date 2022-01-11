@@ -20,18 +20,18 @@ const FILES_TO_CACHE = [
     
 ];
 
-// callback function of the install event listener:
+
 self.addEventListener('install', function (e) {
   e.waitUntil(
     caches.open(CACHE_NAME).then(function (cache) {
-      console.log('installing cache : ' + CACHE_NAME)
+     
       return cache.addAll(FILES_TO_CACHE)
     })
   )
 });
 
 
-//Add an event listener to the activate event:
+
 self.addEventListener('activate', function(e) {
     e.waitUntil(
       caches.keys().then(function(keyList) {
@@ -43,7 +43,7 @@ self.addEventListener('activate', function(e) {
         return Promise.all(
           keyList.map(function(key, i) {
             if (cacheKeeplist.indexOf(key) === -1) {
-              console.log('deleting cache : ' + keyList[i]);
+             
               return caches.delete(keyList[i]);
             }
           })
@@ -52,17 +52,17 @@ self.addEventListener('activate', function(e) {
     );
   });
 
-  //Add event listener to fetch everything:
+  
 
 
 self.addEventListener('fetch', function (e) {
   console.log('fetch request: ' + e.request.url);
   e.respondWith(caches.match(e.request).then(function (request) {
     if (request) {
-      console.log('Responding with Cache: ' + e.request.url);
+      
       return request
     } else {
-      console.log('Files were not cached, fetching :' + e.request.url);
+
       return fetch(e.request)
     }
   }))
