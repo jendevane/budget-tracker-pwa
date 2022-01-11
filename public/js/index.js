@@ -14,7 +14,6 @@ fetch("/api/transaction")
     populateChart();
   });
 
-
 function populateTotal() {
   // reduce transaction amounts to a single total value
   let total = transactions.reduce((total, t) => {

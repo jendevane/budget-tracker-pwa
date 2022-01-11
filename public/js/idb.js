@@ -1,5 +1,10 @@
 
-    
+ const indexedDB =
+ window.indexedDB ||
+ window.mozIndexedDB ||
+ window.webkitIndexedDB ||
+ window.msIndexedDB ||
+ window.shimIndexedDB;   
 let db;
 
 const request = indexedDB.open('budget-tracker', 1);
@@ -57,7 +62,7 @@ function uploadfund() {
           'Content-Type': 'application/json'
         }
       })
-        .then(response => response.json())
+      .then(response => { return response.json(); })
         .then(serverResponse => {
           if (serverResponse.message) {
             throw new Error(serverResponse);
